@@ -1,0 +1,151 @@
+﻿<Window x:Class="Ticketsystem_WPF.UI.NeuerKundeW"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ticketsystem_WPF.UI"
+        mc:Ignorable="d"
+        Title="Ticketsystem" Height="450" Width="800"
+        WindowStyle="None" 
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Border CornerRadius="20" 
+            BorderBrush="Black"
+            BorderThickness="3">
+        <Border.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#c8b3f9" Offset="0"/>
+                <GradientStop Color="#8bcefc" Offset="0.45"/>
+                <GradientStop Color="#a4dce4" Offset="0.75"/>
+                <GradientStop Color="#eec0da" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        
+        <Grid Width="550" Height="440">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button x:Name="btnMinimize"
+                            BorderThickness="0"
+                            Content="-"
+                            Foreground="Black"
+                            FontSize="16"
+                            FontFamily="Arial"
+                            Cursor="Hand"
+                            Grid.Column="1"
+                            Click="btnMinimize_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#eec0da"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" Value="#ee9ac9"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                        CornerRadius="9"
+                                        Background="{TemplateBinding Background}">
+                                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button x:Name="btnClose"
+                        BorderThickness="0"
+                        Content="x"
+                        Foreground="Black"
+                        FontSize="13"
+                        FontFamily="Arial"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        Click="btnClose_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#c8b3f9"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" Value="#FFB191FD"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Label x:Name="NeuKundeLabel" Content="Neuen Kunden Anlegen" HorizontalAlignment="Left" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="22"/>
+            <Label x:Name="NachnameLabel" Content="Nachname" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label x:Name="VornameLabel" Content="Vorname" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" FontSize="18"/>
+            <Label x:Name="GebdatLabel" Content="Geburtsdatum" HorizontalAlignment="Left" Margin="10,186,0,0" VerticalAlignment="Top" FontSize="18" RenderTransformOrigin="0.424,2.707"/>
+            <Label x:Name="GeschlechtLabel" Content="Geschlecht" HorizontalAlignment="Left" Margin="10,249,0,0" VerticalAlignment="Top" FontSize="18" RenderTransformOrigin="0.424,2.707"/>
+            <TextBox x:Name="NachnameTextBox" Text="Mustermann" HorizontalAlignment="Left" Margin="231,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="283" FontSize="18" Height="34">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Background" Value="AliceBlue"/>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox x:Name="VornameTextBox" Text="Max" HorizontalAlignment="Left" Margin="231,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="283" FontSize="18" Height="34">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Background" Value="AliceBlue"/>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <TextBox x:Name="GebdatTextBox" HorizontalAlignment="Left" Margin="231,186,0,0" TextWrapping="Wrap" Text="DD-MM-YYYY" VerticalAlignment="Top" Width="283" FontSize="18" Height="34">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Background" Value="AliceBlue"/>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <ComboBox x:Name="GeschlechtComboBox" HorizontalAlignment="Left" Margin="231,250,0,0" VerticalAlignment="Top" Width="283" Height="34">
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="Background" Value="AliceBlue"/>
+                    </Style>
+                </ComboBox.Style>
+                <ComboBoxItem>Weiblich</ComboBoxItem>
+                <ComboBoxItem>Männlich</ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="OkButton" Content="OK" HorizontalAlignment="Left" Margin="10,360,0,0" VerticalAlignment="Top" Width="119" Height="42" FontSize="18" Click="OkButton_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#c8b3f9"/>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="AbbrechenButton" Content="Abbrechen" HorizontalAlignment="Left" Margin="395,360,0,0" VerticalAlignment="Top" Width="119" Height="42" FontSize="18" Click="AbbrechenButton_Click">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#8bcefc"/>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+    </Border>
+</Window>

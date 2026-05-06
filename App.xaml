@@ -1,0 +1,10 @@
+﻿<Application x:Class="Ticketsystem_WPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Ticketsystem_WPF"
+             xmlns:vm="clr-namespace:Ticketsystem.ViewModel"
+             StartupUri="UI/MainWindow.xaml">
+    <Application.Resources>
+        <vm:MainWindowViewModel x:Key="mainVM"/>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,278 @@
+﻿<Window x:Class="Ticketsystem_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Ticketsystem_WPF"
+        mc:Ignorable="d"
+        Title="Ticketsystem" Height="450" Width="800"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        DataContext="{StaticResource mainVM}">
+    <Window.Resources>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="OptionMarkFocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="14,0,0,0" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="RadioButton.Static.Background" Color="#FFFFFFFF"/>
+        <SolidColorBrush x:Key="RadioButton.Static.Border" Color="#FF707070"/>
+        <SolidColorBrush x:Key="RadioButton.Static.Glyph" Color="#FF212121"/>
+        <SolidColorBrush x:Key="RadioButton.MouseOver.Background" Color="#FFF3F9FF"/>
+        <SolidColorBrush x:Key="RadioButton.MouseOver.Border" Color="#FF5593FF"/>
+        <SolidColorBrush x:Key="RadioButton.MouseOver.Glyph" Color="#FF212121"/>
+        <SolidColorBrush x:Key="RadioButton.Pressed.Background" Color="#FFD9ECFF"/>
+        <SolidColorBrush x:Key="RadioButton.Pressed.Border" Color="#FF3C77DD"/>
+        <SolidColorBrush x:Key="RadioButton.Pressed.Glyph" Color="#FF212121"/>
+        <SolidColorBrush x:Key="RadioButton.Disabled.Background" Color="#FFE6E6E6"/>
+        <SolidColorBrush x:Key="RadioButton.Disabled.Border" Color="#FFBCBCBC"/>
+        <SolidColorBrush x:Key="RadioButton.Disabled.Glyph" Color="#FF707070"/>
+        <Style TargetType="{x:Type RadioButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource RadioButton.Static.Background}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource RadioButton.Static.Border}"/>
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type RadioButton}">
+                        <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border x:Name="radioButtonBorder" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="100" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1,1,2,1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
+                                <Grid x:Name="markGrid" Margin="2">
+                                    <Ellipse x:Name="optionMark" Fill="{StaticResource RadioButton.Static.Glyph}" MinWidth="15" MinHeight="15" Opacity="0"/>
+                                </Grid>
+                            </Border>
+                            <ContentPresenter x:Name="contentPresenter" Grid.Column="1" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasContent" Value="true">
+                                <Setter Property="FocusVisualStyle" Value="{StaticResource OptionMarkFocusVisual}"/>
+                                <Setter Property="Padding" Value="4,-1,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.MouseOver.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.MouseOver.Border}"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource RadioButton.MouseOver.Glyph}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Disabled.Border}"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource RadioButton.Disabled.Glyph}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Background}"/>
+                                <Setter Property="BorderBrush" TargetName="radioButtonBorder" Value="{StaticResource RadioButton.Pressed.Border}"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource RadioButton.Pressed.Glyph}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter Property="Opacity" TargetName="optionMark" Value="0.56"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Border CornerRadius="20" 
+            BorderBrush="Black"
+            BorderThickness="3">
+        <Border.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="#c8b3f9" Offset="0"/>
+                <GradientStop Color="#8bcefc" Offset="0.45"/>
+                <GradientStop Color="#a4dce4" Offset="0.75"/>
+                <GradientStop Color="#eec0da" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        
+
+        <Grid>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30">
+                    </RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="btnMinimize"
+                        BorderThickness="0"
+                        Content="-"
+                        Foreground="Black"
+                        FontSize="16"
+                        FontFamily="Arial"
+                        Cursor="Hand"
+                        Grid.Column="1"
+                        Click="btnMinimize_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#eec0da"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" Value="#ee9ac9"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                  HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button x:Name="btnClose"
+                        BorderThickness="0"
+                        Content="x"
+                        Foreground="Black"
+                        FontSize="13"
+                        FontFamily="Arial"
+                        Cursor="Hand"
+                        Grid.Column="2"
+                        Click="btnClose_Click">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="#c8b3f9"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="true">
+                                        <Setter Property="Background" Value="#FFB191FD"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="18" Height="18"
+                                    CornerRadius="9"
+                                    Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                              HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </Grid>
+            </Grid>
+            <Label Content="Ticketsystem von Dumm und Dümmer" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="390" FontSize="22"/>
+            <Button x:Name="NeuButton" Content="Neu" HorizontalAlignment="Left" Margin="10,69,0,0" VerticalAlignment="Top" Click="NeuButton_Click" Height="26" Width="119" FontSize="18">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#8bcefc"/>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="BearbeitenButton" Content="Bearbeiten" IsEnabled="{Binding IsTicketSelected}" HorizontalAlignment="Left" Margin="10,111,0,0" VerticalAlignment="Top" Click="BearbeitenButton_Click" Height="26" Width="119" FontSize="18">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#8bcefc"/>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="LoeschenButton" Content="Löschen" IsEnabled="{Binding IsTicketSelected}" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Click="LoeschenButton_Click" Height="26" Width="119" FontSize="18">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Background" Value="#8bcefc"/>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <DataGrid x:Name="TicketDataGrid"
+                      ItemsSource="{Binding TicketListe}"
+                      SelectedItem="{Binding SelectedTicket}"
+                      Margin="156,111,10,45"
+                      AutoGenerateColumns="False"
+                      IsReadOnly="True"
+                      SelectionMode="Single"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      GridLinesVisibility="Horizontal"
+                      HeadersVisibility="Column"
+                      AlternatingRowBackground="LightBlue"
+                      Background="AliceBlue">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+                    <DataGridTextColumn Header="Überschrift" Binding="{Binding Ueberschrift}" Width="*" MinWidth="150"/>
+                    <DataGridTextColumn Header="Beschreibung" Binding="{Binding Beschreibung}" Width="2*" MinWidth="200">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextWrapping" Value="Wrap"/>
+                                <Setter Property="MaxHeight" Value="60"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTextColumn Header="Kunden-ID" Binding="{Binding KundenId}" Width="80"/>
+                    <DataGridTemplateColumn Header="Status" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border CornerRadius="5" Padding="5,2">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Status}" Value="Neu">
+                                                    <Setter Property="Background" Value="#FFE3F2FD"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Bearbeitung">
+                                                    <Setter Property="Background" Value="#FFFFF9C4"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Testing">
+                                                    <Setter Property="Background" Value="#FFFFE0B2"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Status}" Value="Gelöst">
+                                                    <Setter Property="Background" Value="#FFC8E6C9"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock Text="{Binding StatusText}"
+                                               HorizontalAlignment="Center"
+                                               FontWeight="SemiBold"/>
+                                </Border>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="Erstellt am" Binding="{Binding ErstellungsDatum, StringFormat='dd.MM.yyyy'}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <TextBox x:Name="SuchText" Text="{Binding SuchText, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="156,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="634" Height="34" FontSize="18">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="Background" Value="AliceBlue"/>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+            <RadioButton x:Name="DB" GroupName="Persistenz" Content="DB" HorizontalAlignment="Left" Margin="10,341,0,0" VerticalAlignment="Top" Height="26" Width="119" FontSize="18" IsChecked="True" Checked="DB_Checked"/>
+            <RadioButton x:Name="CSV" GroupName="Persistenz" Content="CSV" HorizontalAlignment="Left" Margin="10,372,0,0" VerticalAlignment="Top" Height="26" Width="119" FontSize="18" Checked="CSV_Checked"/>
+            <RadioButton x:Name="JSON" GroupName="Persistenz" Content="JSON" HorizontalAlignment="Left" Margin="10,403,0,0" VerticalAlignment="Top" Height="26" Width="119" FontSize="18" Checked="JSON_Checked"/>
+        </Grid>
+    </Border>
+</Window>
